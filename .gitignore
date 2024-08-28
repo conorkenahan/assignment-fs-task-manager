@@ -13,3 +13,4 @@ meta.json
 root_config.json
 data_sources/mongodb-atlas/config.json
 providers.json
+node_modules
