@@ -5,15 +5,27 @@ export const tasksState = atom({
   default: [],
 });
 
+export const filteredTasksState = atom({
+  key: "filteredTasksState",
+  default: [],
+});
+
 export const loadTasks = selector({
   key: "loadTasks",
-  get: async () => {
+  get: async ({ get }) => {
     const response = await fetch(`${process.env.REACT_APP_LOCAL_HOST}/tasks`);
     if (!response.ok) {
       throw new Error("Failed to fetch tasks");
     }
-    return response.json();
+
+    const fetchedTasks = await response.json();
+
+    return fetchedTasks;
   },
+
+  set: ({ set }, fetchedTasks) => {
+    set(tasksState, fetchedTasks);
+  }
 });
 
 export const createTaskAPI = async (newTask) => {

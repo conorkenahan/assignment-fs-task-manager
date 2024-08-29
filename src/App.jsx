@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { createTaskAPI, deleteTaskAPI, updateTaskAPI } from "./taskState";
+import {
+  tasksState,
+  filteredTasksState,
+  createTaskAPI,
+  deleteTaskAPI,
+  updateTaskAPI,
+} from "./taskState";
+import { useRecoilState } from "recoil";
 import Task from "./Task/Task";
 import SearchForm from "./SearchForm/SearchForm";
 import NewTask from "./NewTask/NewTask";
 
 const App = () => {
-  const [tasks, setTasks] = useState([]);
-  const [filteredTasks, setFilteredTasks] = useState([]);
+  const [tasks, setTasks] = useRecoilState(tasksState);
+  const [filteredTasks, setFilteredTasks] = useRecoilState(filteredTasksState);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -15,7 +22,6 @@ const App = () => {
     taskOwner: "",
     tags: "",
   });
-
   const fetchTasks = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_LOCAL_HOST}/tasks`);
@@ -23,7 +29,7 @@ const App = () => {
         throw new Error("Failed to fetch tasks");
       }
       const fetchedTasks = await response.json();
-      setTasks(fetchedTasks);
+      setTasks(fetchedTasks); 
       setFilteredTasks(fetchedTasks);
     } catch (error) {
       console.error("Error fetching tasks:", error);
@@ -32,7 +38,7 @@ const App = () => {
 
   useEffect(() => {
     fetchTasks();
-  }, []);
+  }, [setTasks, setFilteredTasks]);
 
   const handleUpdateTask = async (taskId, updatedTask) => {
     try {
@@ -106,14 +112,17 @@ const App = () => {
       <div className="tasks">
         <h2>Tasks:</h2>
         <ul className="tasks-list">
-          {filteredTasks.map((task) => (
-            <Task
-              key={task.id}
-              task={task}
-              deleteTask={handleDeleteTask}
-              updateTask={handleUpdateTask}
-            />
-          ))}
+          {filteredTasks
+            .slice()
+            .reverse()
+            .map((task) => (
+              <Task
+                key={task.id}
+                task={task}
+                deleteTask={handleDeleteTask}
+                updateTask={handleUpdateTask}
+              />
+            ))}
         </ul>
       </div>
     </div>
