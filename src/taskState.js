@@ -1,4 +1,4 @@
-import { atom, selector, useSetRecoilState } from "recoil";
+import { atom, selector } from "recoil";
 
 export const tasksState = atom({
   key: "tasksState",
@@ -33,9 +33,12 @@ export const createTaskAPI = async (newTask) => {
 };
 
 export const deleteTaskAPI = async (taskId) => {
-  const response = await fetch(`${process.env.REACT_APP_LOCAL_HOST}/tasks/${taskId}`, {
-    method: "DELETE",
-  });
+  const response = await fetch(
+    `${process.env.REACT_APP_LOCAL_HOST}/tasks/${taskId}`,
+    {
+      method: "DELETE",
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Failed to delete task");
@@ -43,13 +46,16 @@ export const deleteTaskAPI = async (taskId) => {
 };
 
 export const updateTaskAPI = async (taskId, updatedTask) => {
-  const response = await fetch(`${process.env.REACT_APP_LOCAL_HOST}/tasks/${taskId}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(updatedTask),
-  });
+  const response = await fetch(
+    `${process.env.REACT_APP_LOCAL_HOST}/tasks/${taskId}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedTask),
+    }
+  );
 
   if (!response.ok) {
     throw new Error("Failed to update task");

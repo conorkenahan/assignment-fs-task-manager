@@ -7,7 +7,7 @@ const Task = ({ task, deleteTask, updateTask }) => {
   const [tagsInput, setTagsInput] = useState("");
 
   const handleEditChange = (e) => {
-      const { name, value } = e.target;
+    const { name, value } = e.target;
     setEditedTask((prev) => ({ ...prev, [name]: value }));
   };
 

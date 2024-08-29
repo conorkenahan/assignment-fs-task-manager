@@ -1,128 +1,128 @@
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  h1, h2 {
-    color: #2c3e50;
-  }
-  
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
 
-  .header {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-  }
-  
-  .header-form {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    width: 42%;
-    margin: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .header-form-title {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.2em;
-    color: #3498db;
-  }
-  
-  .header-form-contents {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .header-form-contents div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .header-form-contents div input,
-  .header-form-contents div textarea,
-  .header-form-contents div select {
-    width: 200px;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .tasks-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-    justify-content: center;
-    padding: 0;
-  }
-  
-  .task-form,
-  .task {
-    background-color: white;
-    border: 1px solid grey;
-    border-radius: 8px;
-    width: 42%;
-    min-height: 200px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .task-content {
-    flex-grow: 1;
-    cursor: pointer;
-  }
-  
-  .task h3 {
-    margin-top: 0;
-    color: #3498db;
-  }
-  
-  .task-description {
-    font-style: italic;
-    color: #7f8c8d;
-    margin-bottom: 10px;
-  }
-  
-  .task button,
-  .task-form button {
-    background-color: #3498db;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px;
-    width: auto;
-  }
-  
-  .task button:hover,
-  .task-form button:hover {
-    background-color: #2980b9;
-  }
-  
-  .task-form-item {
-    margin-bottom: 15px;
-  }
-  
-  .task-form-item p {
-    margin: 0 0 5px 0;
-    font-weight: bold;
-  }
-  
-  .task-form-item textarea {
-    min-height: 100px;
-    width: 100%;
-  }
+h1,
+h2 {
+  color: #2c3e50;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.header-form {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 42%;
+  margin: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-form-title {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: #3498db;
+}
+
+.header-form-contents {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-form-contents div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.header-form-contents div input,
+.header-form-contents div textarea,
+.header-form-contents div select {
+  width: 200px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.tasks-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+  padding: 0;
+}
+
+.task-form,
+.task {
+  background-color: white;
+  border: 1px solid grey;
+  border-radius: 8px;
+  width: 42%;
+  min-height: 200px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.task-content {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.task h3 {
+  margin-top: 0;
+  color: #3498db;
+}
+
+.task-description {
+  font-style: italic;
+  color: #7f8c8d;
+  margin-bottom: 10px;
+}
+
+.task button,
+.task-form button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+  width: auto;
+}
+
+.task button:hover,
+.task-form button:hover {
+  background-color: #2980b9;
+}
+
+.task-form-item {
+  margin-bottom: 15px;
+}
+
+.task-form-item p {
+  margin: 0 0 5px 0;
+  font-weight: bold;
+}
+
+.task-form-item textarea {
+  min-height: 100px;
+  width: 100%;
+}

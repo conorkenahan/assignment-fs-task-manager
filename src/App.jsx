@@ -96,10 +96,12 @@ const App = () => {
     <div>
       <h1>Task Manager</h1>
       <div className="header">
-        <div className="header-form search">
-          <SearchForm onSearch={handleSearch} />
-        </div>
-        <NewTask formData={formData} submitTask={submitTask} handleInputChange={handleInputChange} />
+        <SearchForm onSearch={handleSearch} />
+        <NewTask
+          formData={formData}
+          submitTask={submitTask}
+          handleInputChange={handleInputChange}
+        />
       </div>
       <div className="tasks">
         <h2>Tasks:</h2>

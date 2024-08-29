@@ -18,7 +18,7 @@ const SearchForm = ({ onSearch }) => {
   };
 
   return (
-    <form>
+    <form className="header-form search">
       <h2 className="header-form-title">Search Tasks</h2>
       <div className="header-form-contents">
         <div>
