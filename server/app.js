@@ -4,7 +4,6 @@ const path = require('path');
 
 const router = express.Router();
 const tasksFilePath = path.join(__dirname, '../server/_mockDB/tasks.json');
-console.log('tasksFilePath', tasksFilePath);
 
 // Helper function to read tasks from JSON file
 const readTasks = () => {

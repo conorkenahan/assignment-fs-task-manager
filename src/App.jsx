@@ -1,169 +1,116 @@
 import React, { useState, useEffect } from "react";
+import { createTask, deleteTask, updateTask } from "./taskState";
+import Task from "./Task/Task";
+import SearchForm from "./SearchForm/SearchForm";
+import NewTask from "./NewTask/NewTask";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
+  const [filteredTasks, setFilteredTasks] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     dueDate: "",
-    priority: "",
-    owner: "",
+    priority: "Low",
+    taskOwner: "",
+    tags: "",
   });
 
-  useEffect(() => {
-    console.log("App component has mounted");
-    getTasks();
-  }, []);
-
-  const submitTask = (e) => {
-    e.preventDefault();
-    // const { season, timeOfDay, reviewBody } = e.target;
-    fetch(`${process.env.REACT_APP_LOCAL_HOST}/tasks`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        placeid: this.props.placeid,
-        placename: this.props.placename,
-        season: season.value,
-        timeofday: timeOfDay.value,
-        reviewbody: reviewBody.value,
-        rating: this.state.rating,
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        this.props.getReviews();
-        this.setState({
-          rating: 0,
-          season: "Spring",
-          timeOfDay: "Morning",
-          reviewText: "Leave review here",
-        });
-        reviewBody.value = "";
-      })
-      .catch((res) => {
-        this.setState({ error: res.error });
-      });
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_LOCAL_HOST}/tasks`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch tasks");
+      }
+      const fetchedTasks = await response.json();
+      setTasks(fetchedTasks);
+      setFilteredTasks(fetchedTasks);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
   };
 
-  const getTasks = () => {
-    fetch(`${process.env.REACT_APP_LOCAL_HOST}/tasks`)
-      .then((res) => res.json())
-      .then((tasks) => {
-        setTasks(tasks);
-        // console.log("tasks!", tasks);
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const handleUpdateTask = async (taskId, updatedTask) => {
+    try {
+      await updateTask(taskId, updatedTask);
+      await fetchTasks();
+    } catch (error) {
+      console.error("Failed to update task:", error);
+    }
+  };
+
+  const handleDeleteTask = async (taskId) => {
+    try {
+      await deleteTask(taskId);
+      await fetchTasks();
+    } catch (error) {
+      console.error("Failed to delete task:", error);
+    }
+  };
+
+  const submitTask = async (e) => {
+    e.preventDefault();
+    try {
+      await createTask(formData);
+      await fetchTasks();
+      setFormData({
+        title: "",
+        description: "",
+        dueDate: "",
+        priority: "Low",
+        taskOwner: "",
+        tags: "",
       });
+    } catch (error) {
+      console.error("Failed to create task:", error);
+    }
+  };
+
+  const handleSearch = (searchCriteria) => {
+    const filtered = tasks.filter((task) => {
+      const idMatch = !searchCriteria.id || task.id === searchCriteria.id;
+      const statusMatch =
+        !searchCriteria.status || task.status === searchCriteria.status;
+      const priorityMatch =
+        !searchCriteria.priority || task.priority === searchCriteria.priority;
+      const dueDateMatch =
+        (!searchCriteria.dueDateFrom ||
+          new Date(task.dueDate) >= new Date(searchCriteria.dueDateFrom)) &&
+        (!searchCriteria.dueDateTo ||
+          new Date(task.dueDate) <= new Date(searchCriteria.dueDateTo));
+      return statusMatch && priorityMatch && dueDateMatch && idMatch;
+    });
+    setFilteredTasks(filtered);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setTasks((prevTasks) => [...prevTasks, { ...formData, id: Date.now() }]);
-    setFormData({
-      title: "",
-      description: "",
-      dueDate: "",
-      priority: "medium",
-      owner: "",
-    });
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   return (
-    <div className="">
-      <h1 className="">Task Manager</h1>
-      <form onSubmit={handleSubmit} className="">
-        <div className="">
-          <label htmlFor="title" className="">
-            Title:
-          </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleInputChange}
-            required
-            className=""
-          />
+    <div>
+      <h1>Task Manager</h1>
+      <div className="header">
+        <div className="header-form search">
+          <SearchForm onSearch={handleSearch} />
         </div>
-        <div className="">
-          <label htmlFor="description" className="">
-            Description:
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleInputChange}
-            className=""
-          ></textarea>
-        </div>
-        <div className="mb-4">
-          <label htmlFor="dueDate" className="">
-            Due Date:
-          </label>
-          <input
-            type="date"
-            id="dueDate"
-            name="dueDate"
-            value={formData.dueDate}
-            onChange={handleInputChange}
-            className=""
-          />
-        </div>
-        <div className="">
-          <label htmlFor="priority" className="">
-            Priority:
-          </label>
-          <select
-            id="priority"
-            name="priority"
-            value={formData.priority}
-            onChange={handleInputChange}
-            className=""
-          >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-        </div>
-        <div className="">
-          <label htmlFor="owner" className="">
-            Task Owner:
-          </label>
-          <input
-            type="text"
-            id="owner"
-            name="owner"
-            value={formData.owner}
-            onChange={handleInputChange}
-            className=""
-          />
-        </div>
-        <button type="submit" className="">
-          Add Task
-        </button>
-      </form>
-      <div>
-        <h2 className="">Tasks:</h2>
-        <ul>
-          {tasks.map((task) => (
-            <li key={task.id} className="">
-              <h3 className="font-bold">{task.title}</h3>
-              <p>{task.description}</p>
-              <p>Due: {task.dueDate}</p>
-              <p>Priority: {task.priority}</p>
-              <p>Owner: {task.owner}</p>
-            </li>
+        <NewTask formData={formData} submitTask={submitTask} handleInputChange={handleInputChange} />
+      </div>
+      <div className="tasks">
+        <h2>Tasks:</h2>
+        <ul className="tasks-list">
+          {filteredTasks.map((task) => (
+            <Task
+              key={task.id}
+              task={task}
+              deleteTask={handleDeleteTask}
+              updateTask={handleUpdateTask}
+            />
           ))}
         </ul>
       </div>

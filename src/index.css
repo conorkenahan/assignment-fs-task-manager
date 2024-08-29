@@ -1,0 +1,71 @@
+.header {
+  display: flex;
+}
+
+.header-form {
+  border: 1px solid black;
+  width: 320px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.header-form-contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.header-form-contents div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 3px;
+}
+
+.header-form-contents div input,
+.header-form-contents div textarea,
+.header-form-contents div select {
+  box-sizing: border-box;
+  width: 200px;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 70%;
+}
+
+.task-form,
+.task {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  min-height: 400px;
+  margin-right: 25px;
+}
+
+.task button,
+.task-form button {
+  width: 20%;
+}
+
+.task-form-item {
+  width: 92%;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+}
+
+.task-form-item p {
+  margin: 3px;
+}
+
+.task-form-item textarea {
+  min-height: 100px;
+}
+
+.task-description {
+  font-style: italic;
+}

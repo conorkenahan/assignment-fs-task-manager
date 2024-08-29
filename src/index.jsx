@@ -1,10 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App"; // Adjust the path if your App component is in a different location
+import { RecoilRoot } from "recoil";
+import App from "./App";
+import "./index.css";
 
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
+  </React.StrictMode>
 );
