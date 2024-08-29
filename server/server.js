@@ -7,17 +7,15 @@ const path = require("path");
 const cors = require("cors");
 
 const corsOptions = {
-  origin: "http://localhost:3001", // or your frontend's URL
+  origin: "http://localhost:3001",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type"],
 };
 
 app.use(cors(corsOptions));
 
-// File path for tasks.json
 const tasksFilePath = path.join(__dirname, "../server/_mockDB/tasks.json");
 
-// Read tasks from file
 async function readTasks() {
   try {
     const data = await fs.readFile(tasksFilePath, "utf8");

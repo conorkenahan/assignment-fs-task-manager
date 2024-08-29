@@ -7,7 +7,7 @@ const Task = ({ task, deleteTask, updateTask }) => {
   const [tagsInput, setTagsInput] = useState("");
 
   const handleEditChange = (e) => {
-    const { name, value } = e.target;
+      const { name, value } = e.target;
     setEditedTask((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -77,8 +77,8 @@ const Task = ({ task, deleteTask, updateTask }) => {
         <div className="task-form-item">
           <p>Owner:</p>
           <input
-            name="owner"
-            value={editedTask.owner}
+            name="taskOwner"
+            value={editedTask.taskOwner}
             onChange={handleEditChange}
           />
         </div>

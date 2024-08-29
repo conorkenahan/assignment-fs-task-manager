@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { createTask, deleteTask, updateTask } from "./taskState";
+import { createTaskAPI, deleteTaskAPI, updateTaskAPI } from "./taskState";
 import Task from "./Task/Task";
 import SearchForm from "./SearchForm/SearchForm";
 import NewTask from "./NewTask/NewTask";
@@ -36,7 +36,7 @@ const App = () => {
 
   const handleUpdateTask = async (taskId, updatedTask) => {
     try {
-      await updateTask(taskId, updatedTask);
+      await updateTaskAPI(taskId, updatedTask);
       await fetchTasks();
     } catch (error) {
       console.error("Failed to update task:", error);
@@ -45,7 +45,7 @@ const App = () => {
 
   const handleDeleteTask = async (taskId) => {
     try {
-      await deleteTask(taskId);
+      await deleteTaskAPI(taskId);
       await fetchTasks();
     } catch (error) {
       console.error("Failed to delete task:", error);
@@ -55,7 +55,7 @@ const App = () => {
   const submitTask = async (e) => {
     e.preventDefault();
     try {
-      await createTask(formData);
+      await createTaskAPI(formData);
       await fetchTasks();
       setFormData({
         title: "",
